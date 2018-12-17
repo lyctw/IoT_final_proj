@@ -27,7 +27,7 @@ bot.on('message', function (event) {
     var replyMsg = `Hello你剛才說的是:${event.message.text}`;
     // 透過event.reply(要回傳的訊息)方法將訊息回傳給使用者
     event.reply(replyMsg).then(function (data) {
-        console.log(data);
+        console.log(event.replyToken, data);
     }).catch(function (error) {
         console.log(error);
     });
