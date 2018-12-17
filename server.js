@@ -3,7 +3,7 @@ const express = require('express');
 
 // const CHANNEL_ID           = '1631087660',
 //       CHANNEL_SECRET       = '3a4cae499590fbc23d2a7fbeaca1e2b5',
-//       CHANNEL_ACCESS_TOKEN = 'zH4jV1mw3XYGi1L04TqQbCXXrMWGp2jHENB+kW3BnAbEN8SSAbnD0lO2RcOXsteNf+HC1ZtS/QAXtwm8RcYLz2FjsIsfctyI3xYD70SMO3J00p9KS2EEJO+QzyVnBZKvCs2TzXA0WvLxiVDwlX7+nQdB04t89/1O/w1cDnyilFU=';
+//       CHANNEL_ACCESS_TOKEN = 'uIwge3H5nhPcEyBXdCwGMnJs//9ZKW1iaTMv8VN4xl3hw8k13fN8WqORAd5YpqCmf+HC1ZtS/QAXtwm8RcYLz2FjsIsfctyI3xYD70SMO3K/SuVRVs+vW/NlkQX7gyBrMOr2DGmiw6s44OuUgANLEQdB04t89/1O/w1cDnyilFU=';
 
 const bot = linebot({
     channelId: CHANNEL_ID,
@@ -29,7 +29,7 @@ bot.on('message', (event) => {
 });
 
 let PORT = process.env.PORT || 80;
-app.listen(PORT, () => {
+app.listen(process.env.PORT, () => {
     console.log(`server is up on ${PORT}`);
 })
 
