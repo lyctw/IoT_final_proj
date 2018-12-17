@@ -22,6 +22,7 @@
   "homepage": "https://github.com/syokujinau/IoT_final_proj#readme",
   "dependencies": {
     "express": "^4.15.2",
-    "linebot": "^1.3.0"
+    "linebot": "^1.3.0",
+    "line-messaging": "^1.2.0"
   }
 }
