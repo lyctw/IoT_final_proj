@@ -21,11 +21,15 @@ app.get('/', (req, res) => {
 
 app.post('/webhook', linebotParser)
 
-bot.on('message', (event) => {
-    event.reply(event.message.text).then((data) => {
-        console.log('Success', data);
-    }).catch((error) => {
-        console.log('Error', error);
+bot.on('message', function (event) {
+    // event.message.text是使用者傳給bot的訊息
+    // 準備要回傳的內容
+    var replyMsg = `Hello你剛才說的是:${event.message.text}`;
+    // 透過event.reply(要回傳的訊息)方法將訊息回傳給使用者
+    event.reply(replyMsg).then(function (data) {
+        // 當訊息成功回傳後的處理
+    }).catch(function (error) {
+        // 當訊息回傳失敗後的處理
     });
 });
 
