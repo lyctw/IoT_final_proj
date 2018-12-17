@@ -5,10 +5,11 @@ const express = require('express');
 //       CHANNEL_SECRET       = 'acc649e977849b0c56668cf65fb3b78f',
 //       CHANNEL_ACCESS_TOKEN = 'FISyLnxb8ogt53pxKzItlGkw1UMkSfY6FCeExz9CQYKT8nedVVN+8AmqDDq/B0yzHRsTfwyjez9Xf6nzcSNpkucQ6BRwDCB5BXaDS/ZLr014tc9eFMC4x2WVqv2H8Tlj1gpV2K51BVw9Q9yct03smwdB04t89/1O/w1cDnyilFU=';
 
+
 const bot = linebot({
-    channelId: CHANNEL_ID,
-    channelSecret: CHANNEL_SECRET,
-    channelAccessToken: CHANNEL_ACCESS_TOKEN
+    channelId: process.env.CHANNEL_ID,
+    channelSecret: process.env.CHANNEL_SECRET,
+    channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN
 });
 
 const app = express();
