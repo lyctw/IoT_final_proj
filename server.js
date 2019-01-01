@@ -1,7 +1,10 @@
+// Line Development 
+
 const linebot = require('linebot');
 const express = require('express');
 const weather = require('./weather');
 
+// enviroment variables (for ngrok testing)
 process.env.CHANNEL_ID = '1631832658';
 process.env.CHANNEL_SECRET = 'acc649e977849b0c56668cf65fb3b78f';
 process.env.CHANNEL_ACCESS_TOKEN = 'FISyLnxb8ogt53pxKzItlGkw1UMkSfY6FCeExz9CQYKT8nedVVN+8AmqDDq/B0yzHRsTfwyjez9Xf6nzcSNpkucQ6BRwDCB5BXaDS/ZLr014tc9eFMC4x2WVqv2H8Tlj1gpV2K51BVw9Q9yct03smwdB04t89/1O/w1cDnyilFU=';
@@ -16,21 +19,26 @@ const app = express();
 
 const linebotParser = bot.parser();
 
+// root 
 app.get('/',function(req,res){
     
     // res.send('Hello World!');
-    weather.getPM25('大安').then((data) => {
+    weather.getPM25('崙背').then((data) => {
         res.send(data);
     }).catch((err) => {
         res.send(err);
     })
 });
 
+// webhook
 app.post('/linewebhook', linebotParser);
 
+
+// message event handler
 bot.on('message', function (event) {
     // console.log(event);
 	switch (event.message.type) {
+        // 文字類訊息
         case 'text':
             event.reply(event.message.text).then(data => {
                 console.log('Success', data);
@@ -38,7 +46,7 @@ bot.on('message', function (event) {
                 console.log('Error', err);
             })
             break;
-
+        // 貼圖類訊息
         case 'sticker':
             event.reply({
                 type: 'sticker',
@@ -46,7 +54,7 @@ bot.on('message', function (event) {
                 stickerId: '1'
             });
             break;
-
+        //
         default:
             event.reply({
                 type: 'sticker',
