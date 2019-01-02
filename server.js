@@ -23,7 +23,7 @@ const app = express();
 const linebotParser = bot.parser();
 
 // root 
-app.get('/',async (req,res) => {
+app.get('/', async (req,res) => {
     let data = await weather.getPM25('崙背');
     try {
         res.send(data);
