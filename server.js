@@ -7,7 +7,7 @@ const weather = require('./weather');
 const axios   = require('axios');
 
 // enviroment variables (for ngrok testing)
-require('./config');
+// require('./config');
 
 const bot = linebot({
 	channelId: process.env.CHANNEL_ID,
