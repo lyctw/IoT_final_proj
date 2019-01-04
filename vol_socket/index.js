@@ -1,13 +1,15 @@
 // 192.168.1.152
 const io = require('socket.io-client');
-const yc = require('./req-promise');
+const yc = require('./utils/req-promise');
 const https = require('https');
 const mqtt = require('mqtt');
 
-var socket = io.connect('http://192.168.1.105:3000');
-var client = mqtt.connect('mqtt://192.168.1.152');
+const socket = io.connect('http://192.168.1.105:3000');
+const client = mqtt.connect('mqtt://192.168.1.152');
 
 const DBUrl = 'https://radiant-lake-70397.herokuapp.com/home/status';
+
+const updateFreq = 500; // ms
 
 let home = {
   light: false,
@@ -18,65 +20,60 @@ let home = {
   },
   volumio: {
     playing: false, // 
-    volumn: 30
+    volumn: 25
   },
   wire: [true, true, false, true, true]
 }
 
-setInterval(() => {}, 500)
+//updating table every 0.5 sec
+setInterval(() => {
+  yc.request(DBUrl).then((res) => {
+    home = res.status;
+  }).catch((e) => {
+    console.log(e);
+  })
+}, updateFreq)
 
 
+
+////////////////////////////////////////
+/////       MQTT controller        /////
+////////////////////////////////////////
 client.on('connect', () => {
     setInterval(() => {
         client.publish('home/light', `${JSON.stringify({light: home.light})}`)
-    }, 1000)
+        client.publish('home/fan', `${JSON.stringify({fan: home.fan})}`)
+    }, 500)
 })
 
 
 
-let newVol = 25;
-socket.emit('volume', newVol);
+
+////////////////////////////////////////
+/////       volumio controller     /////
+////////////////////////////////////////
+let currentVol = 25;
+let currentPlaying = false;
+socket.emit('volume', currentVol);
 
 setInterval(() => {
 
-
-https.get(DBUrl, (resp) => {
-  let data = '';
-  // A chunk of data has been recieved.
-  resp.on('data', (chunk) => {
-    data += chunk;
-  });
-  // The whole response has been received. Print out the result.
-  resp.on('end', () => {
-    let table = JSON.parse(data);
-    // console.log(table);
-    home = table.status;
+    if(currentPlaying !== home.volumio.playing) {
+        console.log('playing change!')
+        if (home.volumio.playing) {
+            socket.emit('play');
+        } else {
+            socket.emit('pause');
+        }
+        currentPlaying = home.volumio.playing;
+    } 
 
 
-    if(home.volumio.playing === true) {
-        socket.emit('play');
-    } else if (home.volumio.playing === false) {
-        socket.emit('pause');
-    } else {
-      console.log('nothing')
-    }
-
-    
-    if(newVol !== home.volumio.volumn) {
+    if(currentVol !== home.volumio.volumn) {
         console.log('vol changed!')
         socket.emit('volume', home.volumio.volumn);
-        newVol = home.volumio.volumn;
+        currentVol = home.volumio.volumn;
     }
 
-
-
-  });
-}).on("error", (err) => {
-  console.log("Error: " + err.message);
-});
-
-
-
-
-}, 800);
+}, updateFreq)
 
