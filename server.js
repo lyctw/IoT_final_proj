@@ -40,7 +40,7 @@ app.post('/linewebhook', linebotParser);
 //postback 
 bot.on('postback', async function (event) {
     //console.log(event.postback.data);
-    if(event.postback.data === 'music on') {
+    if(event.postback.data === 'music on') {          ///////////////////////////////////////
         try {
             await axios.post(`${DBUrl}/home/volumio`, {playing: true});
             await event.reply('音樂已播放'); 
@@ -54,7 +54,7 @@ bot.on('postback', async function (event) {
         } catch (err) {
             await event.reply('[ERROR] 音樂未暫停'); 
         }
-    } else if (event.postback.data === 'fan on') {
+    } else if (event.postback.data === 'fan on') {    ///////////////////////////////////////
         try {
             await axios.post(`${DBUrl}/home/fan`, {fan: true});
             await event.reply('風扇已開啟');
@@ -68,7 +68,21 @@ bot.on('postback', async function (event) {
         } catch (err) {
             await event.reply('[ERROR] 風扇未關閉'); 
         }
-    } else if (event.postback.data === 'light on') {
+    } else if (event.postback.data === 'air con on') { ///////////////////////////////////////
+        try {
+            await axios.post(`${DBUrl}/home/airCondition/status`, {status: true});
+            await event.reply('冷氣已開啟');
+        } catch (err) {
+            await event.reply('[ERROR] 冷氣未開啟'); 
+        }
+    } else if (event.postback.data === 'air con off') {
+        try {
+            await axios.post(`${DBUrl}/home/airCondition/status`, {status: false});
+            await event.reply('冷氣已關閉');
+        } catch (err) {
+            await event.reply('[ERROR] 冷氣未關閉'); 
+        }
+    } else if (event.postback.data === 'light on') {  ///////////////////////////////////////
         try {
             await axios.post(`${DBUrl}/home/light`, {light: true});
             await event.reply('電燈已開啟');
