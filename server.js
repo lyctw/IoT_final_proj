@@ -1,5 +1,6 @@
 // Line Development https://developers.line.biz/console/channel/1631832658/basic/
-
+// https://radiant-lake-70397.herokuapp.com/home/status
+// https://radiant-lake-70397.herokuapp.com/dht22
 
 const linebot = require('linebot');
 const express = require('express');
