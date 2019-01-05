@@ -1,4 +1,4 @@
-// Line Development 
+// Line Development https://developers.line.biz/console/channel/1631832658/basic/
 
 
 const linebot = require('linebot');
@@ -24,8 +24,8 @@ const linebotParser = bot.parser();
 
 // root 
 app.get('/', async (req,res) => {
-    let data = await weather.getPM25('崙背');
     try {
+        let data = await weather.getPM25('崙背');
         res.send(data);
     } catch (err) {
         res.send(err);
