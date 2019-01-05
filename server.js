@@ -36,20 +36,17 @@ app.get('/', async (req,res) => {
 app.post('/linewebhook', linebotParser);
 
 
-var Operation = async () => {
-    try {
-        await axios.post(`${DBUrl}/home/volumio`, {playing: true});
-        await event.reply('音樂已播放'); 
-    } catch (err) {
-        await event.reply('[ERROR] 音樂未播放'); 
-    }
-}
 
 //postback 
 bot.on('postback', async function (event) {
     //console.log(event.postback.data);
     if(event.postback.data === 'music on') {
-        Operation();
+        try {
+            await axios.post(`${DBUrl}/home/volumio`, {playing: true});
+            await event.reply('音樂已播放'); 
+        } catch (err) {
+            await event.reply('[ERROR] 音樂未播放'); 
+        }
     } else if (event.postback.data === 'music off') {
         try {
             await axios.post(`${DBUrl}/home/volumio`, {playing: false});
