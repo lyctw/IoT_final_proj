@@ -129,7 +129,7 @@ bot.on('message', async function (event) {
                       type: 'carousel',
                       columns: [{
                         type: 'buttons',
-                        thumbnailImageUrl: 'https://i.imgur.com/0du0nnZ.png',
+                        thumbnailImageUrl: 'https://i.imgur.com/cARQwre.png',
                         title: '電燈',
                         text: 'description',
                         actions: [{
@@ -234,11 +234,11 @@ bot.on('message', async function (event) {
                             type: 'buttons',
                             thumbnailImageUrl: 'https://i.imgur.com/f03kaG2.jpg',
                             title: '目前溫溼度',
-                            text: `溫度: ${latest.temperature}℃\n濕度: ${latest.humidity*100}%`,
+                            text: `溫度: ${latest.temperature}℃\n濕度: ${latest.humidity}%`,
                             actions: [{
                                 type: 'uri',
                                 label: 'History',
-                                uri: 'https://www.google.com'
+                                uri: 'https://radiant-lake-70397.herokuapp.com/'
                             }]
                             }
                         });
