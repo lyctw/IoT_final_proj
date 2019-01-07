@@ -143,7 +143,7 @@ bot.on('message', async function (event) {
                         }, {
                           type: 'uri',
                           label: 'View detail',
-                          uri: 'http://example.com/page/111'
+                          uri: 'https://radiant-lake-70397.herokuapp.com/'
                         }]
                       }, {
                         thumbnailImageUrl: 'https://i.imgur.com/Jxp3cQs.png',
@@ -160,7 +160,7 @@ bot.on('message', async function (event) {
                           }, {
                             type: 'uri',
                             label: 'View detail',
-                            uri: 'http://example.com/page/111'
+                            uri: 'https://radiant-lake-70397.herokuapp.com/'
                         }]
                       }, {
                         thumbnailImageUrl: 'https://i.imgur.com/bDkTjLZ.jpg',
@@ -177,7 +177,7 @@ bot.on('message', async function (event) {
                           }, {
                             type: 'uri',
                             label: 'View detail',
-                            uri: 'http://example.com/page/111'
+                            uri: 'https://radiant-lake-70397.herokuapp.com/'
                         }]
                       }]
                     }
