@@ -1,15 +1,16 @@
 # Tech Fresh Line Bot應用: 智慧居家系統
 
+ 
 
 ## 材料與系統架構
  
 
 
 材料:
-1.	Linkit Smart 7688 Duo
-2.	Linkit 7697
-3.	DHT22 
-4.	Raspberry pi3
+1.  Linkit Smart 7688 Duo
+2.  Linkit 7697
+3.  DHT22 
+4.  Raspberry pi3
 
 
 ![](https://i.imgur.com/MiHA7bl.png)
@@ -35,8 +36,8 @@ Line提供各種語言的SDK，而我們使用了Node.js的linebot npm套件
 > **Signature validation**
 > The signature in the X-Line-Signature request header must be verified to confirm that the request was sent from the LINE Platform.
 Authentication is performed as follows:
-> 1.	With the channel secret as the secret key, your application retrieves the digest value in the request body created using the HMAC-SHA256 algorithm.
-> 2.	The server confirms that the signature in the request header matches the digest value which is Base64 encoded.
+> 1.  With the channel secret as the secret key, your application retrieves the digest value in the request body created using the HMAC-SHA256 algorithm.
+> 2.  The server confirms that the signature in the request header matches the digest value which is Base64 encoded.
 
 以下是package.json紀錄的版本以及相依套件
 
@@ -90,9 +91,9 @@ Table內容如下:
 
  
 Free Trial的基本規格如下:
-•	RAM: Variable
-•	Storage: 496MB
-•	Standard driver and REST API support
+• RAM: Variable
+• Storage: 496MB
+• Standard driver and REST API support
 實際測試使用量，每天存入溫溼度約會耗費100KB，所以理論上這個資料庫在一般使用下能夠運作10年
 
 
@@ -122,7 +123,8 @@ endpoint以及對應的HTTP request如下
 
 原始碼: [IoT_home_db/server/server.js](https://github.com/syokujinau/IoT_home_db/blob/master/server/server.js) 
 
-可以使用Postman來做localhost測試	
+可以使用Postman來做localhost測試  
+
 ![](https://i.imgur.com/Wl0Km1e.png)
 
  
@@ -131,9 +133,9 @@ endpoint以及對應的HTTP request如下
 使用Node.js主流的測試函式庫Mocha搭配expect與supertest就能對這些endpoint發出HTTP request，並檢查他們response的header、HTTP status code
 
 版本號碼如下:
-* Mocha	v3.5.3
-* Expect	v1.20.2
-* Supertest	v2.0.1
+* Mocha v3.5.3
+* Expect  v1.20.2
+* Supertest v2.0.1
 
 ![](https://i.imgur.com/cS9RkVz.png)
 
@@ -168,11 +170,11 @@ describe('Array', function() {
 我們使用Heroku這個Platform as a service(PaaS)來架設後端程式，以及各種add-ons為不同需求安裝對應的軟體。
 ![](https://i.imgur.com/FySHWuj.png)
 
-•	平台即服務(PaaS)
-•	支援各種熱門後端語言
-•	減少維護管理系統底層的成本
-•	免費方案最多可有5個服務
-•	Heroku CLI (Deploying with Git)
+• 平台即服務(PaaS)
+• 支援各種熱門後端語言
+• 減少維護管理系統底層的成本
+• 免費方案最多可有5個服務
+• Heroku CLI (Deploying with Git)
 使用Heroku CLI就上傳檔案到git server，並自動部屬Heroku app，生成HTTPS的URL存取sever的資源。
 而在實作LINE Chat Bot的webhook，建議使用ngrok，提供一個HTTPS的URL(因為LINE webhook要求HTTPS協定)，可以在開發階段放到LINE developers的webhook URL，綁定這個執行在本地的webhook，並forwarding到127.0.0.1:3000
 
@@ -208,33 +210,39 @@ URL: https://radiant-lake-70397.herokuapp.com/
 
 原始碼: [IoT_final_proj/vol_socket/index.js](https://github.com/syokujinau/IoT_final_proj/blob/master/vol_socket/index.js) 
 這裡會遇到一個問題是，LinkIt 7688 Duo的記憶體在安裝2個node套件後就會幾近全滿，如下圖
- ![](https://i.imgur.com/7tUgn7K.png)
+
+![](https://i.imgur.com/7tUgn7K.png)
 
 所以建議要mount File System來擴充可用的記憶體空間。
 
 此外，使用MediaTek官方的韌體只能使用非常早期的node.js版本，所以使用網路上的玩家，在Ubuntu 16.04的環境編譯MIPS架構的Node.js v6，參考這篇文章https://www.joemotacek.com/putting-a-newer-version-of-node-js-on-linkit-smart-7688-duo/
 更新韌體後，升級到v6.11.1
- ![](https://i.imgur.com/rS2BtaZ.png)
+
+![](https://i.imgur.com/rS2BtaZ.png)
 
 
 ## 實體物件
 
 * 電器控制: LinkIt 7697 + 繼電器 三組
+
 ![](https://i.imgur.com/foGwsks.png)
 
 * 音響控制: Raspberry Pi 3 
+
 ![](https://i.imgur.com/RoYDK4k.png)
 
 * 環境感測: LinkIt 7697 + DHT 22 
+
 ![](https://i.imgur.com/hpvGZ3X.png)
 
 ### 通訊協定
 
-* 電器控制	MQTT
-* 音響控制	Websocket
-* 環境感測	MQTT
+* 電器控制  MQTT
+* 音響控制  Websocket
+* 環境感測  MQTT
 
 以上裝置控制與溫溼度感測資料蒐集，皆透過Contoller Gateway實作，硬體使用Linkit 7688，主要需要安裝Socket.io以及MQTT Broker。
+
 ![](https://i.imgur.com/D26RgSG.png)
 
 
